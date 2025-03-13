@@ -6,11 +6,11 @@ import { ThemedView } from '@/components/ThemedView';
 const carros = [
   {
     id: 1,
-    marca: 'VW',
-    modelo: 'Fusca',
-    ano: 1964,
-    cor: 'Bege',
-    image: "https://thegarage.com.br/wp-content/uploads/2022/03/1964-fusca-bege-1200-a-venda-sao-paulo-sp-for-sale-the-garage-classicos-a-melhor-loja-de-carros-antigos-acervo-de-carros-1.jpg"
+    marca: 'Toyota',
+    modelo: 'Supra',
+    ano: 2020,
+    cor: 'Preto',
+    image: "https://uploads.automaistv.com.br/2024/11/5zx8rK8t-Toyota-GR-Supra-A90-edicao-de-despedida-Abre-jpg.webp  "
   },
   {
     id: 2,
