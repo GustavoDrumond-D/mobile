@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-
+import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter';
+import Card from './components/card';
 
 const carros = [
   {
@@ -10,7 +11,7 @@ const carros = [
     modelo: 'Supra',
     ano: 2020,
     cor: 'Preto',
-    preco: 100000,
+    preco: 100.000,
     avaliacao: 4.5,
     image: "https://uploads.automaistv.com.br/2024/11/5zx8rK8t-Toyota-GR-Supra-A90-edicao-de-despedida-Abre-jpg.webp"
   },
@@ -20,7 +21,7 @@ const carros = [
     modelo: 'Civic',
     ano: 2019,
     cor: 'Branco',
-    preco: 80000,
+    preco: 80.000,
     avaliacao: 4.2,
     image: 'https://image1.mobiauto.com.br/images/api/images/v1.0/12434410/transform/fl_progressive,f_webp,q_80'
   },
@@ -30,11 +31,41 @@ const carros = [
     modelo: 'Cronos',
     ano: 2022,
     cor: 'Vermelho',
-    preco: 90000,
+    preco: 90.000,
     avaliacao: 4.8,
     image: 'https://www.autocerto.com/fotos/440/2234511/1.jpg'
-  }
-];
+  },
+  {
+    id: 4,
+    marca: 'Peugeot',
+    modelo: 'Kwid',
+    ano: 2020,
+    cor: 'Branco',
+    preco: 70.000,
+    avaliacao: 4.6,
+    image: 'https://catarina-prd.s3.sa-east-1.amazonaws.com/0850d4c827a0b45a6bfaa3b6845cba11.jpeg'
+  },
+  {
+    id: 5,
+    marca: 'Chevrolet',
+    modelo: 'Onix',
+    ano: 2022,
+    cor: 'Preto',
+    preco: 80.000,
+    avaliacao: 4.7,
+    image: 'https://i.ytimg.com/vi/MRRy_Q-qP0g/maxresdefault.jpg'
+  },
+  {
+    id: 6,
+    marca: 'Fiat',
+    modelo: 'Palio',
+    ano: 2020,
+    cor: 'Vermelho',
+    preco: 60.000,
+    avaliacao: 4.4,
+    image: 'https://lh4.googleusercontent.com/M1fqqSs3Uo-auhQP5jMGjQcKzPgw94YSK4SABlVkTPCO48HBmvgEkmGMVnazfTd0PaFvMF_ViQg4G9WOOh0Eb5BkqtL1wrGcSi5NSTsChXSX9Glyx1rGGNR4Nlf1-8zCLKujOpat'
+  },
+]
 
 export default function App() {
   const [cardsExpandidos, setCardsExpandidos] = useState({});
@@ -55,19 +86,7 @@ export default function App() {
         data={carros}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => toggleExpandirCard(item.id)} style={styles.card}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <Text style={styles.cardText}>{item.marca} {item.modelo}</Text>
-
-            {cardsExpandidos[item.id] && (
-              <View style={styles.detalhes}>
-                <Text style={styles.detailsText}>Ano: {item.ano}</Text>
-                <Text style={styles.detailsText}>Cor: {item.cor}</Text>
-                <Text style={styles.detailsText}>Preço: R${item.preco.toLocaleString('pt-BR')}</Text>
-                <Text style={styles.detailsText}>Avaliação: {item.avaliacao}☆</Text>
-              </View>
-            )}
-          </TouchableOpacity>
+          <Card carro={item} />
         )}
       />
     </View>
@@ -87,35 +106,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
     color: '#0a7ea4',
-    fontFamily: 'BigShoulders'
+    fontFamily: 'BigShoulders',
+    fontFamily: 'Inter_400Regular'
   },
-  card: {
-    backgroundColor: '#f9f9f9',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 8,
-    width: 300,
-    alignItems: 'center'
-  },
-  cardText: {
-    fontSize: 16,
-    color: '#333',
-    fontFamily: 'BigShoulders'
-  },
-  image: {
-    width: '100%',
-    height: 150,
-    borderRadius: 8
-  },
-  detalhes: {
-    marginTop: 8,
-    backgroundColor: '#ddd',
-    padding: 10,
-    borderRadius: 8,
-    width: '100%',
-    alignItems: 'center'
-  },
-  detailsText: {
-    fontFamily: 'BigShoulders'
-  }
 });
