@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
-import { useFonts } from 'expo-font';
-import AppLoading from 'expo-app-loading';
+
 
 const carros = [
   {
@@ -38,14 +37,6 @@ const carros = [
 ];
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    'BigShoulders': require('./assets/fonts/BigShoulders-VariableFont.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   const [cardsExpandidos, setCardsExpandidos] = useState({});
 
   const toggleExpandirCard = (id) => {
