@@ -1,56 +1,68 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { useFonts, Inter_400Regular } from '@expo-google-fonts/inter';
 
-export default function Card({ carro }) {
+export default function FilmeCard({ filme }) {
     const [expandido, setExpandido] = useState(false);
 
     return (
-        <TouchableOpacity onPress={() => setExpandido(!expandido)} style={styles.card}>
-            <Image source={{ uri: carro.image }} style={styles.image} />
-            <Text style={styles.cardText}>{carro.marca} {carro.modelo}</Text>
+        <TouchableOpacity 
+            onPress={() => setExpandido(!expandido)} 
+            style={styles.card}
+            activeOpacity={0.8}
+        >
+            <Image source={{ uri: filme.posterUrl }} style={styles.poster} />
+            <Text style={styles.movieTitle}>{filme.title} ({filme.year})</Text>
+            
             {expandido && (
-                <View style={styles.detalhes}>
-                    <Text style={styles.detailsText}>Ano: {carro.ano}</Text>
-                    <Text style={styles.detailsText}>Cor: {carro.cor}</Text>
-                    <Text style={styles.detailsText}>Preco: R${carro.preco.toLocaleString('pt-BR')}</Text>
-                    <Text style={styles.detailsText}>Avaliação: {carro.avaliacao}☆</Text>
+                <View style={styles.details}>
+                    <Text style={styles.detailsText}>Duração: {filme.runtime} min</Text>
+                    <Text style={styles.detailsText}>Diretor: {filme.director}</Text>
+                    <Text style={styles.detailsText}>Gêneros: {filme.genres.join(', ')}</Text>
+                    <Text style={styles.detailsText}>Elenco: {filme.actors}</Text>
+                    <Text style={styles.plotText}>Sinopse: {filme.plot}</Text>
                 </View>
             )}
-
         </TouchableOpacity>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#f9f9f9',
-        padding: 10,
-        marginBottom: 10,
-        borderRadius: 8,
-        width: 300,
-        alignItems: 'center',
+        backgroundColor: "#1a1a1a",
+        borderRadius: 10,
+        overflow: "hidden",
+        marginBottom: 12,
+        elevation: 3,
+        marginHorizontal: 10,
     },
-    cardText: {
+    poster: {
+        width: "100%",
+        height: 200,
+        resizeMode: "cover",
+    },
+    movieTitle: {
+        padding: 12,
+        color: "#FFD700",
         fontSize: 16,
-        color: '#333',
-        fontFamily: 'BigShoulders',
-        fontFamily: 'Inter_400Regular'
+        fontFamily: 'Inter-Bold',
     },
-    image: {
-        width: '100%',
-        height: 150,
-        borderRadius: 8
+    details: {
+        padding: 12,
+        backgroundColor: '#2a2a2a',
+        borderTopWidth: 1,
+        borderTopColor: '#333',
     },
-    detalhes: {
+    detailsText: {
+        color: "#ffffff",
+        fontSize: 14,
+        marginBottom: 6,
+        fontFamily: 'Inter-Light',
+    },
+    plotText: {
+        color: "#ffffff",
+        fontSize: 14,
         marginTop: 8,
-        backgroundColor: '#ddd',
-        padding: 10,
-        borderRadius: 8,
-        width: '100%',
-        alignItems: 'center'
-    },
-      detailsText: {
-        fontFamily: 'Inter_400Regular'
+        fontStyle: 'italic',
+        fontFamily: 'Inter-Light',
     }
-})
+});
