@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     marginBottom: 15,
-    aspectRatio: 0.67, // Proporção 2:3 (poster de filme)
+    aspectRatio: 0.67,
   },
 });
