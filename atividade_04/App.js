@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, Text, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, Dimensions, ActivityIndicator } from 'react-native';
+import { useFonts, Inter_300Light, Inter_700Bold } from '@expo-google-fonts/inter';
 import FilmeCard from './components/card';
 import dados from './db.json';
 import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'Inter-Light': Inter_300Light,
+    'Inter-Bold': Inter_700Bold,
+  });
+
   const [searchQuery, setSearchQuery] = useState('');
   const screenWidth = Dimensions.get('window').width;
   const cardWidth = (screenWidth - 40) / 3;
 
-  // Filtra os filmes baseado na pesquisa
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#FFD700" />
+      </View>
+    );
+  }
+
   const filteredMovies = dados.movies.filter(movie =>
     movie.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -46,10 +59,15 @@ export default function App() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#121212',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#121212',
   },
   header: {
@@ -67,7 +85,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#FFD700',
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Inter-Bold',
     textAlign: 'center',
   },
   scrollView: {

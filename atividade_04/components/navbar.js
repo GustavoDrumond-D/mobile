@@ -90,6 +90,14 @@ const NavBar = () => {
         >
           <Text style={styles.navText}>Mais...</Text>
         </TouchableOpacity>
+
+        {/* Botão de Perfil movido para a barra principal */}
+        <TouchableOpacity 
+          style={[styles.navButton, styles.profileButton]}
+          onPress={() => console.log('Perfil pressionado')}
+        >
+          <Text style={styles.navText}>Acessar Perfil</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Dropdown de Categorias */}
@@ -121,7 +129,7 @@ const NavBar = () => {
         </ScrollView>
       </Animated.View>
       
-      {/* Dropdown de Mais Opções */}
+      {/* Dropdown de Mais Opções (agora só com os switches) */}
       <Animated.View 
         style={[
           styles.moreOptionsDropdown,
@@ -153,10 +161,6 @@ const NavBar = () => {
             thumbColor={notificacoes ? '#000' : '#f4f3f4'}
           />
         </View>
-        
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Acessar Perfil</Text>
-        </TouchableOpacity>
       </Animated.View>
     </View>
   );
@@ -179,12 +183,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    minWidth: 70, // Largura mínima para evitar esmagamento
+    minWidth: 70,
+  },
+  profileButton: {
+    backgroundColor: '#333',
   },
   navText: {
     color: '#000',
     fontWeight: 'bold',
-    fontSize: 14, // Reduzido para caber mais itens
+    fontSize: 14,
   },
   categoryButton: {
     flexDirection: 'row',
@@ -233,16 +240,7 @@ const styles = StyleSheet.create({
   switchLabel: {
     color: '#FFF',
     fontSize: 14,
-  },
-  loginButton: {
-    padding: 15,
-    alignItems: 'center',
-    backgroundColor: '#333',
-  },
-  loginButtonText: {
-    color: '#FFD700',
-    fontWeight: 'bold',
-  },
+  }
 });
 
 export default NavBar;

@@ -10,22 +10,29 @@ export default function FilmeCard({ filme, cardWidth }) {
 
     return (
         <View style={[styles.cardContainer, { width: cardWidth }]}>
-            {/* Card principal compacto */}
             <TouchableOpacity 
                 onPress={() => setModalVisible(true)} 
                 style={styles.card}
                 activeOpacity={0.8}
             >
+                {/* IMAGEM: Reduzi a altura para deixar espaço para o título */}
                 <Image 
                     source={{ uri: filme.posterUrl }} 
-                    style={[styles.poster, { height: cardWidth * 1.5 }]} 
+                    style={[styles.poster, { height: cardWidth * 1.3 }]}  // De 1.5 para 1.3
                 />
-                <Text style={styles.movieTitle} numberOfLines={1}>
-                    {filme.title} ({filme.year})
-                </Text>
+                
+                {/* TÍTULO: Container com altura fixa e espaçamento */}
+                <View style={styles.titleContainer}>
+                    <Text 
+                        style={styles.movieTitle} 
+                        numberOfLines={2}  // Permite 2 linhas para títulos longos
+                    >
+                        {filme.title} ({filme.year})
+                    </Text>
+                </View>
             </TouchableOpacity>
 
-            {/* Modal com detalhes */}
+
             <Modal
                 visible={modalVisible}
                 transparent={true}
@@ -84,7 +91,7 @@ export default function FilmeCard({ filme, cardWidth }) {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        marginBottom: 5,
+        marginBottom: 15,
     },
     card: {
         backgroundColor: "#1a1a1a",
@@ -96,11 +103,15 @@ const styles = StyleSheet.create({
         width: "100%",
         resizeMode: "cover",
     },
-    movieTitle: {
+    titleContainer: {
         padding: 8,
+        minHeight: 50,
+        justifyContent: 'center',
+    },
+    movieTitle: {
         color: "#FFD700",
         fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
         textAlign: 'center',
     },
     modalOverlay: {
@@ -127,7 +138,7 @@ const styles = StyleSheet.create({
     movieTitleExpandido: {
         color: "#FFD700",
         fontSize: 22,
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
         textAlign: 'center',
         marginBottom: 15,
     },
@@ -137,12 +148,13 @@ const styles = StyleSheet.create({
     detailsLabel: {
         color: "#FFD700",
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
         marginBottom: 3,
     },
     detailsValue: {
         color: "#ffffff",
         fontSize: 15,
+        fontFamily: 'Inter-Light',
     },
     elencoContainer: {
         marginLeft: 10,
@@ -151,11 +163,13 @@ const styles = StyleSheet.create({
     atorText: {
         color: "#ffffff",
         fontSize: 14,
+        fontFamily: 'Inter-Light',
         marginBottom: 3,
     },
     plotText: {
         color: "#ffffff",
         fontSize: 14,
+        fontFamily: 'Inter-Light',
         lineHeight: 20,
         textAlign: 'justify',
     },
@@ -168,7 +182,7 @@ const styles = StyleSheet.create({
     },
     closeButtonText: {
         color: '#000',
-        fontWeight: 'bold',
+        fontFamily: 'Inter-Bold',
         fontSize: 16,
     },
 });
