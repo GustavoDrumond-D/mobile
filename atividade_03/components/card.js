@@ -10,7 +10,6 @@ export default function FilmeCard({ filme, cardWidth }) {
 
     return (
         <View style={[styles.cardContainer, { width: cardWidth }]}>
-            {/* Card principal compacto */}
             <TouchableOpacity 
                 onPress={() => setModalVisible(true)} 
                 style={styles.card}
@@ -25,7 +24,6 @@ export default function FilmeCard({ filme, cardWidth }) {
                 </Text>
             </TouchableOpacity>
 
-            {/* Modal com detalhes */}
             <Modal
                 visible={modalVisible}
                 transparent={true}

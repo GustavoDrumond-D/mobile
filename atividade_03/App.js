@@ -51,6 +51,5 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     marginBottom: 15,
-    aspectRatio: 0.67,
   },
 });
