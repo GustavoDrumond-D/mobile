@@ -62,7 +62,6 @@ const NavBar = () => {
 
   return (
     <View style={styles.navContainer}>
-      {/* Barra Principal */}
       <View style={styles.mainBar}>
         <TouchableOpacity style={styles.navButton}>
           <Text style={styles.navText}>Início</Text>
@@ -91,7 +90,6 @@ const NavBar = () => {
           <Text style={styles.navText}>Mais...</Text>
         </TouchableOpacity>
 
-        {/* Botão de Perfil movido para a barra principal */}
         <TouchableOpacity 
           style={[styles.navButton, styles.profileButton]}
           onPress={() => console.log('Perfil pressionado')}
@@ -100,7 +98,6 @@ const NavBar = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Dropdown de Categorias */}
       <Animated.View 
         style={[
           styles.dropdown,
@@ -129,7 +126,6 @@ const NavBar = () => {
         </ScrollView>
       </Animated.View>
       
-      {/* Dropdown de Mais Opções (agora só com os switches) */}
       <Animated.View 
         style={[
           styles.moreOptionsDropdown,

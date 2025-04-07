@@ -15,17 +15,15 @@ export default function FilmeCard({ filme, cardWidth }) {
                 style={styles.card}
                 activeOpacity={0.8}
             >
-                {/* IMAGEM: Reduzi a altura para deixar espaço para o título */}
                 <Image 
                     source={{ uri: filme.posterUrl }} 
-                    style={[styles.poster, { height: cardWidth * 1.3 }]}  // De 1.5 para 1.3
+                    style={[styles.poster, { height: cardWidth * 1.3 }]} 
                 />
                 
-                {/* TÍTULO: Container com altura fixa e espaçamento */}
                 <View style={styles.titleContainer}>
                     <Text 
                         style={styles.movieTitle} 
-                        numberOfLines={2}  // Permite 2 linhas para títulos longos
+                        numberOfLines={2}
                     >
                         {filme.title} ({filme.year})
                     </Text>

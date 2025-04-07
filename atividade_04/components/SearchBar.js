@@ -6,11 +6,12 @@ const SearchBar = ({ value, onChangeText }) => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Pesquisar filmes..."
+        placeholder={placeholder}
         placeholderTextColor="#888"
         value={value}
         onChangeText={onChangeText}
         clearButtonMode="while-editing"
+        keyboardType={keyboardType || 'default'}
       />
     </View>
   );
