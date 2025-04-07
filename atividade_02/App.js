@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { useFonts, Inter_300Light, Inter_700Bold } from '@expo-google-fonts/inter';
+import { ScrollView, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import FilmeCard from './components/card';
 import dados from './db.json';
 
@@ -20,7 +20,7 @@ export default function App() {
       </View>
 
       <View style={styles.listContainer}>
-        {dados.movies.slice(0, 5).map((filme) => (
+        {dados.movies.map((filme) => (
           <FilmeCard key={filme.id} filme={filme} />
         ))}
       </View>
