@@ -20,12 +20,11 @@ export default function App() {
   const [runtimeFilter, setRuntimeFilter] = useState(300);
   const [yearRange, setYearRange] = useState([1930, 2023]);
 
-  // Estados renomeados
   const [directorFilter, setDirectorFilter] = useState('');
   const [actorFilter, setActorFilter] = useState('');
   const [plotFilter, setPlotFilter] = useState('');
 
-  // Mostrar ou não filtros
+
   const [showFilters, setShowFilters] = useState(false);
 
   const screenWidth = Dimensions.get('window').width;
@@ -62,7 +61,6 @@ export default function App() {
           onChangeText={setSearchQuery}
         />
 
-        {/* Botão de mostrar/esconder filtros */}
         <TouchableOpacity
           onPress={() => setShowFilters(prev => !prev)}
           style={styles.toggleButton}
@@ -156,10 +154,6 @@ export default function App() {
             </View>
           </View>
         )}
-
-        {/* Inputs tipo chat */}
-
-
         <NavBar />
       </View>
 
