@@ -8,12 +8,11 @@ export default function FilmeCard({ filme }) {
         style={styles.poster} 
       />
       <Text style={styles.movieTitle}>Filme: {filme.title}</Text>
-      <text style={styles.movieTitle}>Genero: {filme.genres}</text>
-      <text style={styles.movieTitle}>Ano: {filme.year}</text>
-      <text style={styles.movieTitle}>Tempo: {filme.runtime}</text>
-      <text style={styles.movieTitle}>Diretor{filme.director}</text>
-      <text style={styles.movieTitle}>Atores: {filme.actors}</text>
-      <text style={styles.movieTitle}>Descrição: {filme.plot}</text>
+      <Text style={styles.movieTitle}>Ano: {filme.year}</Text>
+      <Text style={styles.movieTitle}>Tempo de duração{filme.runtime}</Text>
+      <Text style={styles.movieTitle}>Diretor: {filme.director}</Text>
+      <Text style={styles.movieTitle}>Atores: {filme.actors}</Text>
+      <Text style={styles.movieTitle}>Descrição: {filme.plot}</Text>
     </View>
   );
 }
