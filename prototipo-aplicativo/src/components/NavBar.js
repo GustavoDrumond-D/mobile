@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function NavBar() {
+  const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const [userVisible, setUserVisible] = useState(false);
 
@@ -47,8 +49,12 @@ export default function NavBar() {
         <View style={styles.overlay}>
           <View style={styles.menu}>
             <Text style={styles.menuTitle}>Conta</Text>
-            <TouchableOpacity><Text style={styles.menuItem}>🔐 Login</Text></TouchableOpacity>
-            <TouchableOpacity><Text style={styles.menuItem}>📝 Registrar</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.menuItem}>🔐 Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <Text style={styles.menuItem}>📝 Registrar</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => setUserVisible(false)} style={styles.closeButton}>
               <Text style={styles.closeText}>Fechar</Text>
             </TouchableOpacity>

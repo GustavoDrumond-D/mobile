@@ -90,35 +90,36 @@ export default function HomePage() {
     const screenWidth = Dimensions.get('window').width;
 
     return (
-        <ScrollView style={styles.container}>
-            <NavBar /> {/* NavBar agora cuida da parte do topo */}
+        <View style={styles.container}>
+            <NavBar />
+            <ScrollView style={styles.content}>
+                <View style={styles.listContainer}>
+                    {movies.map((filme) => (
+                        <FilmeCard key={filme.imdbID} filme={filme} cardWidth={screenWidth - 20} />
+                    ))}
+                </View>
 
-            <View style={styles.listContainer}>
-                {movies.map((filme) => (
-                    <FilmeCard key={filme.imdbID} filme={filme} cardWidth={screenWidth - 20} />
-                ))}
-            </View>
+                <View style={styles.pagination}>
+                    {page > 1 && (
+                        <Text style={styles.pageButton} onPress={() => setPage(page - 1)}>⬅</Text>
+                    )}
 
-            <View style={styles.pagination}>
-                {page > 1 && (
-                    <Text style={styles.pageButton} onPress={() => setPage(page - 1)}>⬅</Text>
-                )}
+                    {getPageNumbers().map((p) => (
+                        <Text
+                            key={p}
+                            style={[styles.pageNumber, p === page && styles.currentPage]}
+                            onPress={() => setPage(p)}
+                        >
+                            {p}
+                        </Text>
+                    ))}
 
-                {getPageNumbers().map((p) => (
-                    <Text
-                        key={p}
-                        style={[styles.pageNumber, p === page && styles.currentPage]}
-                        onPress={() => setPage(p)}
-                    >
-                        {p}
-                    </Text>
-                ))}
-
-                {page < totalPages && (
-                    <Text style={styles.pageButton} onPress={() => setPage(page + 1)}>➡</Text>
-                )}
-            </View>
-        </ScrollView>
+                    {page < totalPages && (
+                        <Text style={styles.pageButton} onPress={() => setPage(page + 1)}>➡</Text>
+                    )}
+                </View>
+            </ScrollView>
+        </View>
     );
 }
 
@@ -126,6 +127,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#121212',
+    },
+    content: {
+        flex: 1,
+        paddingTop: 10,
     },
     listContainer: {
         paddingHorizontal: 10,
