@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import NavBar from '../components/NavBar';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
+import { login } from '../../services/auth';
+import NavBar from '../../components/NavBar/NavBar';
+import styles from './styles';
 
 export default function LoginPage({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
-      setError('Preencha todos os campos');
+      Alert.alert('Erro', 'Preencha todos os campos');
       return;
     }
-    navigation.navigate('User');
+    const response = await login(email, password);
+    if (response.success) {
+      navigation.navigate('User');
+    } else {
+      setError(response.error);
+    }
   };
 
   return (
@@ -20,7 +27,7 @@ export default function LoginPage({ navigation }) {
       <NavBar />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Login</Text>
-        
+
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
         <TextInput
@@ -46,7 +53,7 @@ export default function LoginPage({ navigation }) {
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.linkContainer}
           onPress={() => navigation.navigate('Register')}
         >
@@ -56,58 +63,3 @@ export default function LoginPage({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#121212',
-  },
-  content: {
-    flex: 1,
-    paddingTop: 40,
-    paddingHorizontal: 30,
-  },
-  title: {
-    color: '#FFD700',
-    fontSize: 28,
-    fontFamily: 'Inter-Bold',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
-  input: {
-    backgroundColor: '#1a1a1a',
-    color: '#FFF',
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 20,
-    fontFamily: 'Inter-Light',
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: '#FFD700',
-    borderRadius: 8,
-    padding: 18,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#000',
-    fontFamily: 'Inter-Bold',
-    fontSize: 16,
-  },
-  linkContainer: {
-    marginTop: 30,
-    alignItems: 'center',
-  },
-  linkText: {
-    color: '#FFD700',
-    fontFamily: 'Inter-Light',
-    textDecorationLine: 'underline',
-  },
-  errorText: {
-    color: '#FF4444',
-    fontFamily: 'Inter-Light',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-});

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
+import styles from './styles';
 
 const SearchBar = ({ value, onChangeText }) => {
   return (
@@ -15,22 +16,5 @@ const SearchBar = ({ value, onChangeText }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    backgroundColor: '#121212',
-  },
-  input: {
-    height: 40,
-    backgroundColor: '#1a1a1a',
-    color: '#FFF',
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    borderWidth: 1,
-    borderColor: '#333',
-  },
-});
 
 export default SearchBar;

@@ -1,15 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { auth } from '../../services/firebase';
+import styles from './styles';
 
 export default function NavBar() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const [userVisible, setUserVisible] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      setUserLoggedIn(!!user);
+    });
+    return unsubscribe;
+  }, []);
+
+  const handleUserAction = () => {
+    setUserVisible(false);
+    if (userLoggedIn) {
+      navigation.navigate('User');
+    } else {
+      navigation.navigate('Login');
+    }
+  };
 
   return (
     <View style={styles.titleContainer}>
-      <Text style={styles.title}>I♡Movies</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.title}>I♡Movies</Text>
+      </TouchableOpacity>
 
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={() => setUserVisible(true)}>
@@ -49,12 +70,37 @@ export default function NavBar() {
         <View style={styles.overlay}>
           <View style={styles.menu}>
             <Text style={styles.menuTitle}>Conta</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.menuItem}>🔐 Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <Text style={styles.menuItem}>📝 Registrar</Text>
-            </TouchableOpacity>
+            
+            {userLoggedIn ? (
+              <TouchableOpacity onPress={handleUserAction}>
+                <Text style={styles.menuItem}>👤 Minha Conta</Text>
+              </TouchableOpacity>
+            ) : (
+              <>
+                <TouchableOpacity onPress={() => {
+                  setUserVisible(false);
+                  navigation.navigate('Login');
+                }}>
+                  <Text style={styles.menuItem}>🔐 Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                  setUserVisible(false);
+                  navigation.navigate('Register');
+                }}>
+                  <Text style={styles.menuItem}>📝 Registrar</Text>
+                </TouchableOpacity>
+              </>
+            )}
+
+            {userLoggedIn && (
+              <TouchableOpacity onPress={() => {
+                setUserVisible(false);
+                auth.signOut();
+              }}>
+                <Text style={styles.menuItem}>🚪 Sair</Text>
+              </TouchableOpacity>
+            )}
+
             <TouchableOpacity onPress={() => setUserVisible(false)} style={styles.closeButton}>
               <Text style={styles.closeText}>Fechar</Text>
             </TouchableOpacity>
@@ -64,66 +110,3 @@ export default function NavBar() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    backgroundColor: '#000',
-    padding: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    color: '#FFD700',
-    fontSize: 30,
-    fontFamily: 'Inter-Bold',
-  },
-  iconContainer: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  userIcon: {
-    color: '#FFD700',
-    fontSize: 30,
-    marginRight: 10,
-  },
-  searchIcon: {
-    color: '#FFD700',
-    fontSize: 30,
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
-  },
-  menu: {
-    width: '70%',
-    backgroundColor: '#1a1a1a',
-    height: '100%',
-    paddingTop: 50,
-    paddingHorizontal: 20,
-  },
-  menuTitle: {
-    color: '#FFD700',
-    fontSize: 24,
-    marginBottom: 20,
-    fontWeight: 'bold',
-  },
-  menuItem: {
-    color: '#fff',
-    fontSize: 18,
-    marginVertical: 10,
-  },
-  closeButton: {
-    marginTop: 30,
-    padding: 10,
-    backgroundColor: '#FFD700',
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  closeText: {
-    color: '#000',
-    fontWeight: 'bold',
-  },
-});
