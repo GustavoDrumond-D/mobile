@@ -88,6 +88,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+    favoriteButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 2,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 20,
+    padding: 5,
+  },
+  favoriteIcon: {
+    fontSize: 24,
+    color: '#FFD700',
+  },
 });
 
 export default styles;

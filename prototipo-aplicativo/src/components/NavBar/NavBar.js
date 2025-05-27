@@ -10,12 +10,14 @@ export default function NavBar() {
   const [userVisible, setUserVisible] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setUserLoggedIn(!!user);
     });
     return unsubscribe;
   }, []);
+
 
   const handleUserAction = () => {
     setUserVisible(false);
@@ -26,6 +28,7 @@ export default function NavBar() {
     }
   };
 
+  
   return (
     <View style={styles.titleContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
@@ -42,18 +45,24 @@ export default function NavBar() {
         </TouchableOpacity>
       </View>
 
-      <Modal
-        visible={menuVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setMenuVisible(false)}
-      >
+      <Modal visible={menuVisible} transparent={true} animationType="slide" onRequestClose={() => setMenuVisible(false)}>
         <View style={styles.overlay}>
           <View style={styles.menu}>
             <Text style={styles.menuTitle}>Menu</Text>
-            <TouchableOpacity><Text style={styles.menuItem}>🔍 Pesquisar</Text></TouchableOpacity>
-            <TouchableOpacity><Text style={styles.menuItem}>🎬 Filtros</Text></TouchableOpacity>
-            <TouchableOpacity><Text style={styles.menuItem}>📺 Filmes e Séries</Text></TouchableOpacity>
+
+            <TouchableOpacity onPress={() => {
+              setMenuVisible(false); 
+              navigation.navigate('Search')}}>
+              <Text style={styles.menuItem}>🔍 Pesquisar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Text style={styles.menuItem}>🎬 Filtros</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity>
+              <Text style={styles.menuItem}>📺 Filmes e Séries</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => setMenuVisible(false)} style={styles.closeButton}>
               <Text style={styles.closeText}>Fechar</Text>
             </TouchableOpacity>

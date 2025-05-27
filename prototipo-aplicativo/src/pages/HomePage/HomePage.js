@@ -12,10 +12,12 @@ export default function HomePage() {
         'Inter-Bold': Inter_700Bold,
     });
 
+
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalPages, setTotalPages] = useState(1);
     const [page, setPage] = useState(1);
+
 
     useEffect(() => {
         const loadData = async () => {
@@ -37,28 +39,28 @@ export default function HomePage() {
         loadData();
     }, [page]);
 
+
     const getPageNumbers = () => {
         const visiblePages = 5;
         let start = Math.max(page - Math.floor(visiblePages / 2), 1);
         let end = start + visiblePages - 1;
-
         if (end > totalPages) {
             end = totalPages;
             start = Math.max(end - visiblePages + 1, 1);
         }
-
         const pages = [];
         for (let i = start; i <= end; i++) {
             pages.push(i);
         }
         return pages;
     };
-
     if (!fontsLoaded || loading) {
         return <ActivityIndicator size="large" color="#FFD700" style={{ flex: 1, justifyContent: 'center' }} />;
     }
 
+
     const screenWidth = Dimensions.get('window').width;
+
 
     return (
         <View style={styles.container}>
@@ -76,11 +78,7 @@ export default function HomePage() {
                     )}
 
                     {getPageNumbers().map((p) => (
-                        <Text
-                            key={p}
-                            style={[styles.pageNumber, p === page && styles.currentPage]}
-                            onPress={() => setPage(p)}
-                        >
+                        <Text key={p} style={[styles.pageNumber, p === page && styles.currentPage]} onPress={() => setPage(p)}>
                             {p}
                         </Text>
                     ))}

@@ -10,12 +10,12 @@ export default function RegisterPage({ navigation }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+
   const handleRegister = async () => {
     if (!name || !email || !password) {
       setError('Preencha todos os campos');
       return;
     }
-
     const response = await register(email, password, name);
     if (response.success) {
       navigation.navigate('User');
@@ -23,6 +23,7 @@ export default function RegisterPage({ navigation }) {
       setError(response.error);
     }
   };
+
 
   return (
     <View style={styles.container}>
@@ -32,41 +33,17 @@ export default function RegisterPage({ navigation }) {
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          placeholder="Nome completo"
-          placeholderTextColor="#666"
-          value={name}
-          onChangeText={setName}
-        />
+        <TextInput style={styles.input} placeholder="Nome completo" placeholderTextColor="#666" value={name} onChangeText={setName}/>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#666"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+        <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#666" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          placeholderTextColor="#666"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+        <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#666" secureTextEntry value={password} onChangeText={setPassword} />
 
         <TouchableOpacity style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Registrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.linkContainer}
-          onPress={() => navigation.navigate('Login')}
-        >
+        <TouchableOpacity style={styles.linkContainer} onPress={() => navigation.navigate('Login')} >
           <Text style={styles.linkText}>Já tem conta? Faça login</Text>
         </TouchableOpacity>
       </ScrollView>

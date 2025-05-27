@@ -7,6 +7,7 @@ import styles from './styles';
 export default function UserPage({ navigation }) {
   const [user, setUser] = useState(null);
 
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setUser(user);
@@ -15,10 +16,12 @@ export default function UserPage({ navigation }) {
     return unsubscribe;
   }, []);
 
+
   const handleLogout = () => {
     auth.signOut().then(() => navigation.navigate('Home'));
   };
 
+  
   return (
     <View style={styles.container}>
       <NavBar />

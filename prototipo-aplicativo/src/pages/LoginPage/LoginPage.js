@@ -9,6 +9,7 @@ export default function LoginPage({ navigation }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Erro', 'Preencha todos os campos');
@@ -22,6 +23,7 @@ export default function LoginPage({ navigation }) {
     }
   };
 
+
   return (
     <View style={styles.container}>
       <NavBar />
@@ -30,33 +32,15 @@ export default function LoginPage({ navigation }) {
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#666"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+        <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#666" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none"/>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          placeholderTextColor="#666"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
+        <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#666" secureTextEntry value={password} onChangeText={setPassword}/>
 
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.linkContainer}
-          onPress={() => navigation.navigate('Register')}
-        >
+        <TouchableOpacity style={styles.linkContainer} onPress={() => navigation.navigate('Register')}>
           <Text style={styles.linkText}>Não tem conta? Registre-se</Text>
         </TouchableOpacity>
       </ScrollView>
