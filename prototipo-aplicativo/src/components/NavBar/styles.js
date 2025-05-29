@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 const styles = StyleSheet.create({
   titleContainer: {
     backgroundColor: '#000',
@@ -6,60 +7,86 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
   },
-  title: {
+    title: {
     color: '#FFD700',
     fontSize: 30,
     fontFamily: 'Inter-Bold',
   },
+  
   iconContainer: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 20,
+    alignItems: 'center',
   },
-  userIcon: {
+    userIcon: {
     color: '#FFD700',
-    fontSize: 30,
-    marginRight: 10,
+    fontSize: 28,
   },
   searchIcon: {
     color: '#FFD700',
-    fontSize: 30,
+    fontSize: 28,
   },
-  overlay: {
+    drawerOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.7)',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
-  menu: {
-    width: '70%',
+  drawerContent: {
     backgroundColor: '#1a1a1a',
-    height: '100%',
-    paddingTop: 50,
-    paddingHorizontal: 20,
+    padding: 25,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    minHeight: '50%',
+    maxHeight: '90%',
   },
-  menuTitle: {
+  drawerHeader: {
     color: '#FFD700',
     fontSize: 24,
-    marginBottom: 20,
     fontWeight: 'bold',
+    marginBottom: 25,
+    textAlign: 'center',
   },
-  menuItem: {
-    color: '#fff',
+  drawerItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 18,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#333',
+  },
+  drawerItemText: {
+    color: '#FFF',
     fontSize: 18,
-    marginVertical: 10,
+    marginLeft: 20,
+    fontWeight: '500',
   },
-  closeButton: {
-    marginTop: 30,
-    padding: 10,
+    closeDrawerButton: {
+    marginTop: 25,
+    padding: 15,
     backgroundColor: '#FFD700',
-    borderRadius: 5,
+    borderRadius: 10,
     alignItems: 'center',
   },
-  closeText: {
+  closeDrawerText: {
     color: '#000',
     fontWeight: 'bold',
+    fontSize: 16,
   },
+    userMenuItem: {
+    paddingVertical: 20,
+  },
+    mainMenuItem: {
+    paddingVertical: 18,
+  },
+    rightDrawerContent: {
+    marginLeft: 'auto',
+    width: '80%',
+    height: '100%',
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+  }
 });
 
 export default styles;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, Text,ActivityIndicator, Dimensions
 } from 'react-native';
-import { db, auth } from '../../services/firebase';
+import { db, auth } from '../../../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import FilmeCard from '../../components/card/card';
 import NavBar from '../../components/NavBar/NavBar';

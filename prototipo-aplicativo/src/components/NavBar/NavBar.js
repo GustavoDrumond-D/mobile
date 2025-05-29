@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../../services/firebase';
+import { auth } from '../../../firebaseConfig';
 import styles from './styles';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function NavBar() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
-  const [userVisible, setUserVisible] = useState(false);
+  const [userMenuVisible, setUserMenuVisible] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -18,17 +18,16 @@ export default function NavBar() {
     return unsubscribe;
   }, []);
 
-
-  const handleUserAction = () => {
-    setUserVisible(false);
-    if (userLoggedIn) {
-      navigation.navigate('User');
-    } else {
-      navigation.navigate('Login');
-    }
+  const navigateToScreen = (screenName) => {
+    setMenuVisible(false);
+    navigation.navigate(screenName);
   };
 
-  
+  const navigateToUserScreen = (screenName) => {
+    setUserMenuVisible(false);
+    navigation.navigate(screenName);
+  };
+
   return (
     <View style={styles.titleContainer}>
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
@@ -36,7 +35,7 @@ export default function NavBar() {
       </TouchableOpacity>
 
       <View style={styles.iconContainer}>
-        <TouchableOpacity onPress={() => setUserVisible(true)}>
+        <TouchableOpacity onPress={() => userLoggedIn ? setUserMenuVisible(true) : navigation.navigate('Login')}>
           <Text style={styles.userIcon}>👤</Text>
         </TouchableOpacity>
 
@@ -45,73 +44,118 @@ export default function NavBar() {
         </TouchableOpacity>
       </View>
 
-      <Modal visible={menuVisible} transparent={true} animationType="slide" onRequestClose={() => setMenuVisible(false)}>
-        <View style={styles.overlay}>
-          <View style={styles.menu}>
-            <Text style={styles.menuTitle}>Menu</Text>
-
-            <TouchableOpacity onPress={() => {
-              setMenuVisible(false); 
-              navigation.navigate('Search')}}>
-              <Text style={styles.menuItem}>🔍 Pesquisar</Text>
+      <Modal
+        visible={menuVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setMenuVisible(false)}
+      >
+        <View style={styles.drawerOverlay}>
+          <View style={styles.drawerContent}>
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => navigateToScreen('Home')}
+            >
+              <Ionicons name="home" size={24} color="#FFD700" />
+              <Text style={styles.drawerItemText}>Início</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-              <Text style={styles.menuItem}>🎬 Filtros</Text>
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => navigateToScreen('Favorites')}
+            >
+              <Ionicons name="heart" size={24} color="#FFD700" />
+              <Text style={styles.drawerItemText}>Favoritos</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity>
-              <Text style={styles.menuItem}>📺 Filmes e Séries</Text>
+
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => navigateToScreen('Search')}
+            >
+              <Ionicons name="search" size={24} color="#FFD700" />
+              <Text style={styles.drawerItemText}>Pesquisar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setMenuVisible(false)} style={styles.closeButton}>
-              <Text style={styles.closeText}>Fechar</Text>
+
+            <TouchableOpacity
+              style={styles.drawerItem}
+              onPress={() => navigateToScreen('Filtros')}
+            >
+              <Ionicons name="filter" size={24} color="#FFD700" />
+              <Text style={styles.drawerItemText}>Filtros</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.closeDrawerButton}
+              onPress={() => setMenuVisible(false)}
+            >
+              <Text style={styles.closeDrawerText}>Fechar Menu</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
 
       <Modal
-        visible={userVisible}
+        visible={userMenuVisible}
         transparent={true}
         animationType="slide"
-        onRequestClose={() => setUserVisible(false)}
+        onRequestClose={() => setUserMenuVisible(false)}
       >
-        <View style={styles.overlay}>
-          <View style={styles.menu}>
-            <Text style={styles.menuTitle}>Conta</Text>
-            
+        <View style={styles.drawerOverlay}>
+          <View style={styles.drawerContent}>
+            <Text style={styles.drawerHeader}>Minha Conta</Text>
+
             {userLoggedIn ? (
-              <TouchableOpacity onPress={handleUserAction}>
-                <Text style={styles.menuItem}>👤 Minha Conta</Text>
-              </TouchableOpacity>
+              <>
+                <TouchableOpacity
+                  style={styles.drawerItem}
+                  onPress={() => navigateToUserScreen('UserProfile')}
+                >
+                  <Ionicons name="person-circle" size={24} color="#FFD700" />
+                  <Text style={styles.drawerItemText}>Perfil</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.drawerItem}
+                  onPress={() => {
+                    auth.signOut();
+                    setUserMenuVisible(false);
+                  }}
+                >
+                  <Ionicons name="log-out" size={24} color="#FFD700" />
+                  <Text style={styles.drawerItemText}>Sair</Text>
+                </TouchableOpacity>
+              </>
             ) : (
               <>
-                <TouchableOpacity onPress={() => {
-                  setUserVisible(false);
-                  navigation.navigate('Login');
-                }}>
-                  <Text style={styles.menuItem}>🔐 Login</Text>
+                <TouchableOpacity
+                  style={styles.drawerItem}
+                  onPress={() => {
+                    setUserMenuVisible(false);
+                    navigation.navigate('Login');
+                  }}
+                >
+                  <Ionicons name="log-in" size={24} color="#FFD700" />
+                  <Text style={styles.drawerItemText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                  setUserVisible(false);
-                  navigation.navigate('Register');
-                }}>
-                  <Text style={styles.menuItem}>📝 Registrar</Text>
+
+                <TouchableOpacity
+                  style={styles.drawerItem}
+                  onPress={() => {
+                    setUserMenuVisible(false);
+                    navigation.navigate('Register');
+                  }}
+                >
+                  <Ionicons name="person-add" size={24} color="#FFD700" />
+                  <Text style={styles.drawerItemText}>Registrar</Text>
                 </TouchableOpacity>
               </>
             )}
 
-            {userLoggedIn && (
-              <TouchableOpacity onPress={() => {
-                setUserVisible(false);
-                auth.signOut();
-              }}>
-                <Text style={styles.menuItem}>🚪 Sair</Text>
-              </TouchableOpacity>
-            )}
-
-            <TouchableOpacity onPress={() => setUserVisible(false)} style={styles.closeButton}>
-              <Text style={styles.closeText}>Fechar</Text>
+            <TouchableOpacity
+              style={styles.closeDrawerButton}
+              onPress={() => setUserMenuVisible(false)}
+            >
+              <Text style={styles.closeDrawerText}>Fechar Menu</Text>
             </TouchableOpacity>
           </View>
         </View>

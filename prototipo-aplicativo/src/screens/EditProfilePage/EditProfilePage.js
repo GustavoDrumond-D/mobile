@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { auth } from '../../services/firebase';
+import { auth } from '../../../firebaseConfig';
 import { updateProfile } from 'firebase/auth';
 import NavBar from '../../components/NavBar/NavBar';
 import styles from './styles';

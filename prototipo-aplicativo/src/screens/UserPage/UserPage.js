@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
-import { auth } from '../../services/firebase';
+import { auth } from '../../../firebaseConfig';
 import NavBar from '../../components/NavBar/NavBar';
 import styles from './styles';
 
