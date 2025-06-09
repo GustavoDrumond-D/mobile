@@ -108,7 +108,7 @@ export default function NavBar() {
               <>
                 <TouchableOpacity
                   style={styles.drawerItem}
-                  onPress={() => navigateToUserScreen('UserProfile')}
+                  onPress={() => navigateToUserScreen('User')}
                 >
                   <Ionicons name="person-circle" size={24} color="#FFD700" />
                   <Text style={styles.drawerItemText}>Perfil</Text>
