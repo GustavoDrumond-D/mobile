@@ -80,6 +80,34 @@ src/
 
 ---
 
+## Compatibilidade de Versões
+
+Este projeto foi desenvolvido com versões específicas (e intencionalmente desatualizadas) das dependências para garantir estabilidade em um ambiente já testado.
+
+### Pacotes com versões definidas
+
+| Pacote               | Versão Usada | Versão Recomendada (Expo) |
+|----------------------|--------------|---------------------------|
+| `expo`               | `53.0.9`     | `53.0.11`                 |
+| `react`              | `19.1.0`     | `19.0.0`                  |
+| `react-dom`          | `19.1.0`     | `19.0.0`                  |
+| `react-native`       | `0.79.2`     | `0.79.3`                  |
+| `react-native-screens` | `4.10.0`   | `~4.11.1`                 |
+
+### Por que não atualizar?
+
+- Funcionalidades críticas do app foram testadas e validadas nessas versões
+- Evita quebras inesperadas em bibliotecas de terceiros (ex: navegação, Firebase)
+
+### Se desejar atualizar
+
+Caso prefira usar as versões mais recentes, execute:
+
+```sh
+npx expo install expo@53.0.11 react@19.0.0 react-dom@19.0.0 react-native@0.79.3 react-native-screens@4.11.1
+
+---
+
 ## Observações
 
 - Certifique-se de ter o Node.js e o npm instalados.
